@@ -1,6 +1,8 @@
 # OpenAI API Example Usage
 
-This is a CLI example project in NodeJS that makes use of [a NodeJS project](https://github.com/openai/openai-node) maintained by OpenAI. You will also need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys).
+This is a collection of example projects in NodeJS that makes use of the Open AI API.
+
+You will need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys) before continuing.
 
 ## Prereqs
 
