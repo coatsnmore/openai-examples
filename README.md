@@ -4,7 +4,7 @@ This is a collection of example projects in NodeJS that makes use of the Open AI
 
 You will need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys) before continuing.
 
-There is an example of this project deployed here: https://4l8lmpmgh9.execute-api.us-east-1.amazonaws.com/character-generator.
+There is [an example of this project deployed to AWS Lambda]( https://4l8lmpmgh9.execute-api.us-east-1.amazonaws.com/character-generator).
 
 ![example monkey character](monkey.png)
 ![example bear character](bear.png)
