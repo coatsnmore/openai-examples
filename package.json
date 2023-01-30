@@ -6,13 +6,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "node cli-example/example.js"
+    "example": "node cli/example.js",
+    "api": "node api/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.2.0",
     "dotenv": "^16.0.3",
-    "openai": "^3.1.0"
+    "express": "^4.18.2",
+    "next": "^13.1.1",
+    "openai": "^3.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
