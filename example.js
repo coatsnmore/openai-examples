@@ -18,25 +18,39 @@ if (!configuration.apiKey) {
 readlineSync.setDefaultOptions({
     prompt: chalk.blue.bold('? '),
     print: function (display, encoding) {
-        logger.info(display);
+        // logger.info(display);
         chalk.blue('? ');
     }, // Remove ctrl-chars.
 });
 
 while (true) {
 
-    console.log(chalk.green(`What kind of animal should we name?`));
+    console.log(chalk.green(`What kind of animal is your adventurer?`));
     let animal = readlineSync.prompt();
 
     try {
-        // const completion = await openai.createCompletion({
-        //     model: "text-davinci-003",
-        //     prompt: generatePrompt(animal),
-        //     temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
-        // });
+        console.log(chalk.blue(`Excellent Choice of "${animal}"!...`));
+        const completion = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: generatePrompt(animal),
+            temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
+            max_tokens: 256
+        });
 
-        console.log(chalk.blue(`Excellent Choice!!!`));
-        // console.log(`Here are some super hero name suggestions for a "${animal}":\n ${completion.data.choices[0].text}\n`);
+        let profile = JSON.parse(completion.data.choices[0].text);
+        // let completionText = completion.data.choices[0].text;
+        console.log(chalk.blue(`Here is one suggesion of an adventurer: `));
+         
+        console.log(`
+                Name: ${profile.name}
+                Age: ${profile.age}
+                Species: ${profile.species}
+                Favorite Weapon: ${profile.favoriteWeapon}
+                Darkest Fear: ${profile.darkestFear}
+                Background: ${profile.background}
+                \n`);
+
+
 
     } catch (error) {
         if (error.response) {
@@ -49,13 +63,32 @@ while (true) {
     function generatePrompt(animal) {
         const capitalizedAnimal =
             animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-        return `Suggest three names for an animal that is a superhero.
+        return `Suggest a profile for an animal adventuer including name, age, favorite weapon, darkest fear. Make it funny and cool.
 
           Animal: Cat
-          Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
+          Profile:
+          {
+            "name": "Captain Sharpclaw", 
+            "age": "27",
+            "species": "Cattus Sneakum",
+            "favoriteWeapon": "Laser Eyes",
+            "darkestFear": "The illusive white mouse",
+            "background" : "The formerly distinginguished Captain Sharpclaw Sailed the highseas with his loyal crew until his first mate betrayed him! The rest of the crew was short-sighted and were easily swayed. The captain was abandoned on a beach left with nothing but his wits and his whiskers."
+          }   
+
           Animal: Dog
-          Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
+          Profile:
+          {
+            "name": "McBarks-A-Lot", 
+            "age"": 4,
+            "species": "Doggus Maximus",
+            "favoriterWeapon": "Bare Knuckles",
+            "darkestFear": "The bottom of an empty bowl",
+            "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
+          }
+
           Animal: ${capitalizedAnimal}
-          Names:`;
+          Profile:
+          `;
     }
 }
