@@ -49,7 +49,7 @@ function generatePrompt(animal) {
         "alignment": "Chaotic Neutral",
         "species": "Doggus Maximus",
         "homeTown": "Barkthage",
-        "favoriterWeapon": "Bare Knuckles",
+        "favoriteWeapon": "Bare Knuckles",
         "darkestFear": "The bottom of an empty bowl",
         "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
       }
