@@ -1,0 +1,20 @@
+{
+    "name": "openai-example",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "cli": "node cli/cli.js",
+        "api": "node api/server.js",
+        "api:dev": "nodemon api/server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "openai": "^3.1.0"
+    }
+}
