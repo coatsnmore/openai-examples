@@ -25,7 +25,7 @@ readlineSync.setDefaultOptions({
 
 while (true) {
 
-    console.log(chalk.green(`What kind of animal is your adventurer?`));
+    console.log(chalk.green(`Let's create a new life. What kind of animal is your adventurer?`));
     let animal = readlineSync.prompt();
 
     try {
