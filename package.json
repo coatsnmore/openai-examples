@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "example": "node cli/example.js",
-    "api": "node api/server.js"
+    "cli": "node cli/cli.js",
+    "api": "node api/server.js",
+    "api:dev": "nodemon api/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +20,8 @@
     "openai": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

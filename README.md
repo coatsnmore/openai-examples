@@ -37,10 +37,10 @@ You will need to create an [API Key on the OpenAI website](https://beta.openai.c
 
 4. Add your [API key](https://beta.openai.com/account/api-keys) to the newly created `.env` file
 
-5. Run the example
+5. Run the CLI
 
     ```bash
-    $ npm run example
+    $ npm run cli
     ```
 
 6. Run the API
