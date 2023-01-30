@@ -41,6 +41,12 @@ This is a CLI example project in NodeJS that makes use of [a NodeJS project](htt
     $ npm run example
     ```
 
+6. Run the API
+
+    ```bash
+    $ npm run api
+    ```
+
 ### Some Interesting Reads
 
 * [Sampling Temperature and Language Models](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277)
