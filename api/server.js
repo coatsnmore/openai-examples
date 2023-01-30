@@ -1,6 +1,7 @@
 import express from 'express';
 import { Configuration, OpenAIApi } from "openai";
 import dotenv from 'dotenv';
+import async from 'async'
 dotenv.config();
 
 const configuration = new Configuration({
@@ -41,7 +42,7 @@ function generatePrompt(animal) {
       Profile:
       {
         "name": "McBarks-A-Lot", 
-        "age"": 4,
+        "age": 4,
         "hp": "54",
         "class": "Fighter",
         "mostHiddenSecret": "Puts peanut butter on pickles",
@@ -65,11 +66,53 @@ app.get('/characters', async (req, res) => {
         temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
         max_tokens: 256
     });
-    res.send(JSON.parse(completion.data.choices[0].text));
+
+    let character = JSON.parse(completion.data.choices[0].text);
+    // console.log(`prompt: ${completion.prompt}`);
+
+    const image = await openai.createImage({
+        prompt: `Generate a an image for an adventurer portrait hand painted detailed mature${req.query.animal} ${character.age} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment}`,
+        n: 1,
+        size: "1024x1024",
+    });
+    let image_url = image.data.data[0].url;
+
+    console.log(`image url: ${image_url}`);
+    character.image = image_url;
+
+    console.log(`req.query.html: ${req.query.html}`);
+
+    if (req.query.html) {
+        res.send(`
+        <html>
+            <body>
+                <div><b>Name:</b> ${character.name}</div>
+                <div><b>Age:</b> ${character.age}</div>
+                <div><b>Alignment:</b> ${character.alignment}</div>
+                <div><b>HP:</b> ${character.hp}</div>
+                <div><b>Species:</b> ${character.species}</div>
+                <div><b>Class:</b> ${character.class}</div>
+                <div><b>Home Town:</b> ${character.homeTown}</div>
+                <div><b>Favorite Weapon:</b> ${character.favoriteWeapon}</div>
+                <div><b>Darkest Fear:</b> ${character.darkestFear}</div>
+                <div><b>Hidden Secret:</b> ${character.mostHiddenSecret}</div>
+                <div style="width: 50%;"><b>Background:</b> ${character.background}</div>
+
+                <p>
+                    <img src="${character.image}" style="height: 50%;">
+                </p>
+            </body>
+        </html>
+        `);
+    } else {
+        res.send(character);
+    }
+
 })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
     console.log(`Generate new Characters via 'GET http://localhost:${port}/characters?animal=<type>'`);
     console.log(`For example: 'GET http://localhost:${port}/characters?animal=cat'`);
+    console.log(`For HTML: 'GET http://localhost:${port}/characters?animal=cat&html=true'`);
 })
