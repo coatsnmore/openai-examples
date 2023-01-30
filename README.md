@@ -4,6 +4,8 @@ This is a collection of example projects in NodeJS that makes use of the Open AI
 
 You will need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys) before continuing.
 
+![example monkey character](monkey.png)
+
 ## Prereqs
 
 * NodeJS + NPM
