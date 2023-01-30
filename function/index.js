@@ -89,7 +89,7 @@ function generatePrompt(animal) {
       `;
 }
 
-    const array = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'fish', 'porcupine'];
+    const array = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake'];
     const randomAnimal = array[Math.floor(Math.random() * array.length)];
 
     console.log(`completing...`);
