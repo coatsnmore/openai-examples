@@ -71,7 +71,7 @@ app.get('/characters', async (req, res) => {
     // console.log(`prompt: ${completion.prompt}`);
 
     const image = await openai.createImage({
-        prompt: `Generate a an image for an adventurer portrait hand painted detailed mature${req.query.animal} ${character.age} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment}`,
+        prompt: `Generate an image for an adventurer portrait hand painted detailed mature vibrant colors ${req.query.animal} ${character.age} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment} ${character.background}`,
         n: 1,
         size: "1024x1024",
     });
