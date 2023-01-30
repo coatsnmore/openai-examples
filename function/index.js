@@ -89,10 +89,13 @@ function generatePrompt(animal) {
       `;
 }
 
+    const array = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'fish', 'porcupine'];
+    const randomAnimal = array[Math.floor(Math.random() * array.length)];
+
     console.log(`completing...`);
     const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: generatePrompt('dog'),
+        prompt: generatePrompt(randomAnimal),
         temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
         max_tokens: 256
     });
@@ -102,7 +105,7 @@ function generatePrompt(animal) {
     // console.log(`prompt: ${completion.prompt}`);
 
     const image = await openai.createImage({
-        prompt: `Generate an image for an adventurer portrait hand painted detailed mature vibrant colors dog ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment} ${character.background}`,
+        prompt: `Generate an image for an adventurer portrait hand painted detailed mature vibrant colors ${randomAnimal} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment} ${character.background}`,
         n: 1,
         size: "1024x1024",
     });
