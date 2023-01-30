@@ -40,17 +40,19 @@ while (true) {
         let profile = JSON.parse(completion.data.choices[0].text);
         // let completionText = completion.data.choices[0].text;
         console.log(chalk.blue(`Here is one suggesion of an adventurer: `));
-         
         console.log(`
                 Name: ${profile.name}
                 Age: ${profile.age}
+                Alignment: ${profile.alignment}
+                HP: ${profile.hp}
                 Species: ${profile.species}
+                Class: ${profile.class}
+                Home Town: ${profile.homeTown}
                 Favorite Weapon: ${profile.favoriteWeapon}
                 Darkest Fear: ${profile.darkestFear}
+                Hidden Secret: ${profile.mostHiddenSecret}
                 Background: ${profile.background}
                 \n`);
-
-
 
     } catch (error) {
         if (error.response) {
@@ -63,14 +65,19 @@ while (true) {
     function generatePrompt(animal) {
         const capitalizedAnimal =
             animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-        return `Suggest a profile for an animal adventuer including name, age, favorite weapon, darkest fear. Make it funny and cool.
+        return `Suggest a profile for an animal adventurer including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
 
           Animal: Cat
           Profile:
           {
             "name": "Captain Sharpclaw", 
             "age": "27",
+            "hp": "43",
             "species": "Cattus Sneakum",
+            "homeTown": "Barnacle Bay",
+            "class": "Seafarer",
+            "mostHiddenSecret": "Loves his dog step-brother", 
+            "alignment": "Lawful Neutral",
             "favoriteWeapon": "Laser Eyes",
             "darkestFear": "The illusive white mouse",
             "background" : "The formerly distinginguished Captain Sharpclaw Sailed the highseas with his loyal crew until his first mate betrayed him! The rest of the crew was short-sighted and were easily swayed. The captain was abandoned on a beach left with nothing but his wits and his whiskers."
@@ -81,7 +88,12 @@ while (true) {
           {
             "name": "McBarks-A-Lot", 
             "age"": 4,
+            "hp": "54",
+            "class": "Fighter",
+            "mostHiddenSecret": "Puts peanut butter on pickles",
+            "alignment": "Chaotic Neutral",
             "species": "Doggus Maximus",
+            "homeTown": "Barkthage",
             "favoriterWeapon": "Bare Knuckles",
             "darkestFear": "The bottom of an empty bowl",
             "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
