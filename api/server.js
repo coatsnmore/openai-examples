@@ -74,11 +74,17 @@ app.get('/characters', async (req, res) => {
         prompt: `Generate an image for an adventurer portrait hand painted detailed mature vibrant colors ${req.query.animal} ${character.age} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment} ${character.background}`,
         n: 1,
         size: "1024x1024",
+        "response_format": "b64_json"
     });
-    let image_url = image.data.data[0].url;
+    let imageURL = '';
+    // let image_url = image.data.data[0].url;
+    let image_base64 = image.data.data[0].b64_json;
 
-    console.log(`image url: ${image_url}`);
-    character.image = image_url;
+    if (imageURL) {
+        console.log(`image url: ${image_url}`);
+        character.image = image_url;
+    }
+    
 
     console.log(`req.query.html: ${req.query.html}`);
 
@@ -99,7 +105,7 @@ app.get('/characters', async (req, res) => {
                 <div style="width: 50%;"><b>Background:</b> ${character.background}</div>
 
                 <p>
-                    <img src="${character.image}" style="height: 50%;">
+                    <img src="data:image/png;base64,${image_base64}" style="height: 50%;">
                 </p>
             </body>
         </html>
