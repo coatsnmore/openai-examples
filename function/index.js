@@ -47,12 +47,12 @@ if (!configuration.apiKey) {
 }  
     
     
-function generatePrompt(animal) {
-    const capitalizedAnimal =
-        animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-    return `Suggest a profile for an animal adventurer including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
+function generatePrompt(type) {
+    const capitalizedType =
+        type[0].toUpperCase() + type.slice(1).toLowerCase();
+    return `Suggest a profile for an fantasy RPG adventurer given a specific type including name, age, species, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
 
-      Animal: Cat
+      Type: Cat
       Profile:
       {
         "name": "Captain Sharpclaw", 
@@ -68,7 +68,7 @@ function generatePrompt(animal) {
         "background" : "The formerly distinginguished Captain Sharpclaw Sailed the highseas with his loyal crew until his first mate betrayed him! The rest of the crew was short-sighted and were easily swayed. The captain was abandoned on a beach left with nothing but his wits and his whiskers."
       }   
 
-      Animal: Dog
+      Type: Dog
       Profile:
       {
         "name": "McBarks-A-Lot", 
@@ -84,18 +84,18 @@ function generatePrompt(animal) {
         "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
       }
 
-      Animal: ${capitalizedAnimal}
+      Type: ${capitalizedType}
       Profile:
       `;
 }
 
-    const array = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake'];
-    const randomAnimal = array[Math.floor(Math.random() * array.length)];
+    const types = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake', 'celestial', 'demon', 'angel', 'house', 'clown', 'hippo', 'planet', 'god', 'robot', 'mountain', 'forest', 'wolf', 'spider', 'mongoose', 'kangaroo', 'dinosaur'];
+    const randomType = types[Math.floor(Math.random() * types.length)];
 
     console.log(`completing...`);
     const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: generatePrompt(randomAnimal),
+        prompt: generatePrompt(randomType),
         temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
         max_tokens: 256
     });
@@ -105,20 +105,20 @@ function generatePrompt(animal) {
     // console.log(`prompt: ${completion.prompt}`);
 
     const image = await openai.createImage({
-        prompt: `Generate an image for an adventurer portrait hand painted detailed mature vibrant colors ${randomAnimal} ${character.favoriteWeapon} ${character.class} ${character.name} ${character.mostHiddenSecret} ${character.alignment} ${character.background}`,
+        prompt: `A hand-drawn portaint of a ${randomType} adventurer with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, and using their favorite weapon, ${character.favoriteWeapon}. Make it vibrant, epic look like fine oil painting.`,
         n: 1,
         size: "1024x1024",
+        "response_format": "b64_json"
     });
-    let image_url = image.data.data[0].url;
 
-    console.log(`image url: ${image_url}`);
-    character.image = image_url;
+    // let image_url = image.data.data[0].url;
+    let image_base64 = image.data.data[0].b64_json;
 
     // console.log(`req.query.html: ${req.query.html}`);
 
   let bodyHtml = `
         <html>
-            <body>
+            <body style="font-size: 18pt; height:100%">
                 <div><b>Name:</b> ${character.name}</div>
                 <div><b>Age:</b> ${character.age}</div>
                 <div><b>Alignment:</b> ${character.alignment}</div>
@@ -130,9 +130,9 @@ function generatePrompt(animal) {
                 <div><b>Darkest Fear:</b> ${character.darkestFear}</div>
                 <div><b>Hidden Secret:</b> ${character.mostHiddenSecret}</div>
                 <div style="width: 50%;"><b>Background:</b> ${character.background}</div>
-
+                
                 <p>
-                    <img src="${character.image}" style="height: 50%;">
+                    <img src="data:image/png;base64,${image_base64}" style="height: 50%;">
                 </p>
             </body>
         </html>
