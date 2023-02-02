@@ -1,0 +1,7 @@
+{
+    "prompt":  "Make a character portrait card. Assume the image is the portrait and the rest of the contents after the first colon is the character information.: Name: Nick",
+    "n": 1,
+    "size": "1024x1024",
+    "response_format": "b64_json",
+    "image": "@image.PNG"
+}

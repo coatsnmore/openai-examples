@@ -1,6 +1,6 @@
 {
-    "prompt": "A hand-drawn portaint of a cat adventurer with a class of Paladin, age 72, an alignment of Chaotic Evil, and a flaming sword. Make it vibrant, epic look like fine oil painting.",
+    "prompt": "A hand-drawn portaint of a dog adventurer with a class of Ranger, age 72, an alignment of Chaotic Evil, and a flaming sword. Make it vibrant, epic look like fine oil painting.",
     "n": 1,
-    "size": "1024x1024",
+    "size": "512x512",
     "response_format": "b64_json"
 }
