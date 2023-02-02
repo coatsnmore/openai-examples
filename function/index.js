@@ -45,8 +45,7 @@ const openai = new OpenAIApi(configuration);
 if (!configuration.apiKey) {
     console.error("API Key not configured. Modify your '.env' file with a correct API Key for Open AI with a key of 'OPENAI_API_KEY'.");
 }  
-    
-    
+
 function generatePrompt(type) {
     const capitalizedType =
         type[0].toUpperCase() + type.slice(1).toLowerCase();

@@ -2,7 +2,7 @@
 
 This is a collection of example projects in NodeJS that makes use of the OpenAI API. This project includes example code that uses AI to generate RPG characters, including interesting personalities, story backgrounds, and a generated portait to with it.
 
-You will need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys) before continuing.
+You will need to create an [API Key on the OpenAI website](https://beta.openai.com/account/api-keys) before continuing. The free trial currently includes $18 in credits.
 
 There is [an example of this project deployed to AWS Lambda]( https://4l8lmpmgh9.execute-api.us-east-1.amazonaws.com/character-generator).
 
