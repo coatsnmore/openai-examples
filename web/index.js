@@ -1,13 +1,4 @@
-// fetch("https://example.com/data.json")
-//     .then(response => response.json())
-//     .then(data => {
-//         let dataContainer = document.getElementById("dataContainer");
-//         data.forEach(item => {
-//             let image = new Image();
-//             image.src = "data:image/jpeg;base64," + item.image;
-//             dataContainer.appendChild(image);
-//         });
-//     });
+
 
 // async functions return promises and resolve with whatever is returned
 async function getCharacter() {
@@ -16,14 +7,13 @@ async function getCharacter() {
 
     const host = 'http://localhost:4000';
 
+    const types = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake', 'celestial', 'demon', 'angel', 'house', 'clown', 'hippo', 'planet', 'god', 'robot', 'mountain', 'forest', 'wolf', 'spider', 'mongoose', 'kangaroo', 'dinosaur'];
+    const randomType = types[Math.floor(Math.random() * types.length)];
+
     // fetch returns promises
-    const response = await fetch(`${host}/characters?type=dog`);
+    const response = await fetch(`${host}/characters?type=${randomType}`);
     const json = await response.json();
 
-    // destructuring to array from JSON
-    // const { books } = json;
-
-    // resolves with books array
     return json;
 }
 
@@ -53,8 +43,6 @@ function renderCharacter(character) {
 
     document.getElementById("spinner").remove();
 }
-
-
 
 getCharacter().then(character => renderCharacter(character));
 
