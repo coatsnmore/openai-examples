@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Character Generator</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Character Generator</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
 
-<body>
-    <div id="spinner"></div>
-    <div id="card">
-        <div id="profile"></div>
-        <div id="image" class="lazy-loaded-image"></div>
-    </div>
-    <script src="index.js"></script>
+    <body>
+        <div id="spinner"></div>
+        <div id="card">
+            <div id="profile">profile</div>
+            <div id="image" class="lazy-loaded-image"></div>
+        </div>
+        <div>
+            <button onclick="copyImage()">Copy to Clipboard</button>
+            <img id="shareable-image"></img>
+        </div>
+        <div id="message"></div>
+
+        <script src="index.js"></script>
+        <script src="html2canvas.js"></script>
 </body>
 
 </html>
