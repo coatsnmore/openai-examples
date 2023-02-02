@@ -1,6 +1,7 @@
 import express from 'express';
 import { Configuration, OpenAIApi } from "openai";
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -15,7 +16,9 @@ if (!configuration.apiKey) {
 }
 
 const app = express();
+app.use(cors());
 const port = 4000;
+app.use(express.static("web"));
 
 function generatePrompt(type) {
     const capitalizedType =
@@ -115,6 +118,7 @@ app.get('/characters', async (req, res) => {
         </html>
         `);
     } else {
+        character.image = image_base64;
         res.send(character);
     }
 

@@ -1,0 +1,41 @@
+#profile {
+    outline-color: black;
+    outline-style: solid;
+    outline-width: 1px;
+}
+
+.lazy-loaded-image {
+    border: 10px solid #333;
+    display: inline-block;
+  }
+  
+  .lazy-loaded-image img {
+    max-width: 100%;
+  }
+
+#card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+}
+
+#spinner {
+    width: 100px;
+    height: 100px;
+    border: 4px solid #333;
+    border-top: 4px solid #f00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
