@@ -69,14 +69,15 @@ async function getCharacter(theme) {
     spinner.classList.add("active");
     spinner.style.display = 'inline'
 
-    const host = 'http://localhost:4000';
+    const host = 'http://localhost:4000/characters/';
+    // const host = 'https://4l8lmpmgh9.execute-api.us-east-1.amazonaws.com/character-generator';
 
     theme = theme || 'Fantasy';
     const types = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'rabbit', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake', 'celestial', 'demon', 'angel', 'house', 'clown', 'hippo', 'planet', 'god', 'robot', 'forest', 'wolf', 'spider', 'mongoose', 'kangaroo', 'dinosaur'];
     const randomType = types[Math.floor(Math.random() * types.length)];
 
     // fetch returns promises
-    const response = await fetch(`${host}/characters?type=${randomType}&theme=${theme}`);
+    const response = await fetch(`${host}?type=${randomType}&theme=${theme}`);
     const json = await response.json();
 
     return json;

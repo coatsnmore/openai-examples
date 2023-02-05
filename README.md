@@ -66,4 +66,9 @@ Beware keeping secrets there.
 
 ### Some Interesting Reads
 
-* [Sampling Temperature and Language Models](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277)
+- [Sampling Temperature and Language Models](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277)
+
+### Some Other AI Tools
+
+- [Midjourney - Another Image Generator using Stable Diffusion](https://midjourney.com/)
+- [Open Assistant - an OSS alternative to ChatGPT](https://github.com/LAION-AI/Open-Assistant) 
