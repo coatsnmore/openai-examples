@@ -20,11 +20,17 @@ app.use(cors());
 const port = 4000;
 app.use(express.static("web"));
 
-function generatePrompt(type) {
+function generatePrompt(type, theme) {
+
+    const capitalizedTheme =
+        theme[0].toUpperCase() + theme.slice(1).toLowerCase();
+
     const capitalizedType =
         type[0].toUpperCase() + type.slice(1).toLowerCase();
-    return `Suggest a profile for an adventurer given a Type including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
+        
+    return `Suggest a profile for an adventurer given a Type and Theme including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
 
+      Theme: Hero Fantasy
       Type: Cat
       Profile:
       {
@@ -41,6 +47,7 @@ function generatePrompt(type) {
         "background" : "The formerly distinginguished Captain Sharpclaw Sailed the highseas with his loyal crew until his first mate betrayed him! The rest of the crew was short-sighted and were easily swayed. The captain was abandoned on a beach left with nothing but his wits and his whiskers."
       }   
 
+      Theme: Gladiator Heroics
       Type: Dog
       Profile:
       {
@@ -57,6 +64,7 @@ function generatePrompt(type) {
         "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
       }
 
+      Theme: ${capitalizedTheme}
       Type: ${capitalizedType}
       Profile:
       `;
@@ -64,11 +72,11 @@ function generatePrompt(type) {
 
 app.get('/characters', async (req, res) => {
 
-    let completion, generatedImage, imageVariation, type = req.query.type;
+    let completion, generatedImage, imageVariation, type = req.query.type, theme = req.query.theme;
     try {
         completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: generatePrompt(type),
+            prompt: generatePrompt(type, theme),
             temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
             max_tokens: 256
         });

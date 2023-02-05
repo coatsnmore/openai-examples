@@ -28,7 +28,7 @@ function setDownloadImage(character) {
     }).then(image => {
         const downloadLink = document.getElementById("download-link");
         downloadLink.href = image.src;
-        downloadLink.download= `${character.name}.png`
+        downloadLink.download = `${character.name}.png`
     });
 }
 
@@ -58,17 +58,25 @@ function copyImage() {
 }
 
 // async functions return promises and resolve with whatever is returned
-async function getCharacter() {
+async function getCharacter(theme) {
+    let imageContainer = document.getElementById("image");
+    imageContainer.childNodes.forEach(child => imageContainer.removeChild(child));
+
+    let profileContainer = document.getElementById("profile");
+    profileContainer.childNodes.forEach(child => profileContainer.removeChild(child));
+
     let spinner = document.getElementById("spinner");
     spinner.classList.add("active");
+    spinner.style.display = 'inline'
 
     const host = 'http://localhost:4000';
 
-    const types = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake', 'celestial', 'demon', 'angel', 'house', 'clown', 'hippo', 'planet', 'god', 'robot', 'forest', 'wolf', 'spider', 'mongoose', 'kangaroo', 'dinosaur'];
+    theme = theme || 'Fantasy';
+    const types = ['dog', 'cat', 'bear', 'salamander', 'horse', 'seal', 'rabbit', 'squirrel', 'giraffe', 'monkey', 'porcupine', 'mink', 'donkey', 'moose', 'gorilla', 'zebra', 'hyena', 'deer', 'elk', 'bird', 'lizard', 'snake', 'celestial', 'demon', 'angel', 'house', 'clown', 'hippo', 'planet', 'god', 'robot', 'forest', 'wolf', 'spider', 'mongoose', 'kangaroo', 'dinosaur'];
     const randomType = types[Math.floor(Math.random() * types.length)];
 
     // fetch returns promises
-    const response = await fetch(`${host}/characters?type=${randomType}`);
+    const response = await fetch(`${host}/characters?type=${randomType}&theme=${theme}`);
     const json = await response.json();
 
     return json;
@@ -78,7 +86,10 @@ function renderCharacter(character) {
 
     const characterImage = character.image;
 
+    // let cardContainer = document.getElementById("card");
     let imageContainer = document.getElementById("image");
+    imageContainer.childNodes.forEach(child => imageContainer.removeChild(child));
+
     let image = new Image();
     image.src = "data:image/jpeg;base64," + characterImage;
     imageContainer.appendChild(image);
@@ -101,8 +112,21 @@ function renderCharacter(character) {
     </p>
     `;
 
-    document.getElementById("spinner").remove();
+    // document.getElementById("spinner").remove();
+    document.getElementById("spinner").style.display = 'none';
     setDownloadImage(character);
 }
 
-getCharacter().then(character => renderCharacter(character));
+getCharacter("Fantasy").then(character => renderCharacter(character));
+
+function refreshCharacter(theme) {
+    console.log(`theme: ${theme}`)
+
+    let imageContainer = document.getElementById("image");
+    imageContainer.childNodes.forEach(child => imageContainer.removeChild(child));
+
+    let profileContainer = document.getElementById("profile");
+    profileContainer.childNodes.forEach(child => profileContainer.removeChild(child));
+
+    getCharacter(theme).then(character => renderCharacter(character))
+}   
