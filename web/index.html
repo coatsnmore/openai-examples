@@ -1,26 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Character Generator</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Character Generator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
 
-    <body>
-        <div id="spinner"></div>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="example.jpg" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="console.log('clicked bro')">Fantasy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sci-Fi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Western</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- <div class="row">
+            <div class="col"> -->
+    <div id="card-container" class="container-fluid" style="width: 49vh">
         <div id="card">
-            <div id="profile">profile</div>
-            <div id="image" class="lazy-loaded-image"></div>
-        </div>
-        <div>
-            <button onclick="copyImage()">Copy to Clipboard</button>
-            <img id="shareable-image"></img>
-        </div>
-        <div id="message"></div>
+            <div id="spinner">
+                <div>
+                    <p>Hello!</p>
+                    <p>Just hold on a sec while your hero brews up.</p>
+                    <p>While time waits for no man, legends never die...</p>
+                    <p></p>
+                </div>
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+            <div id="image">
+                <!-- <img class="card-img-top" src="example.jpg" alt="Card image cap"> -->
+            </div>
+            <div id="profile" class="card-body">
+                <!-- <h5 class="card-title">Bad Boi</h5>
+                <p class="card-text">
+                <div><b>Age:</b> 100</div>
+                <div><b>Alignment:</b> Chaotic Weird</div>
+                <div><b>HP:</b> 54</div>
+                <div><b>Species:</b> Nuts</div>
+                <div><b>Class:</b> Ranger</div>
+                <div><b>Home Town:</b> Town</div>
+                <div><b>Favorite Weapon:</b> Weapon</div>
+                <div><b>Darkest Fear:</b> Fear itself.</div>
+                <div><b>Hidden Secret:</b> Gold</div>
+                <div><b>Background:</b> Transparent tithes and a wonderful other thing. Bestow upon the ancients
+                    with a
+                    mighty thrust your invisible hatred. Give it a power of heart fire and thunder kiss.</div>
+                </p> -->
+            </div>
 
-        <script src="index.js"></script>
-        <script src="html2canvas.js"></script>
+        </div>
+        <button onclick="copyImage()" class="btn btn-success">Copy Image to Clipboard</button>
+        <img id="shareable-image"></img>
+
+        <a id="download-link" download="adventurer.png">
+            <button id="download-button" class="btn btn-primary">Download Image</button>
+        </a>
+
+    </div>
+    <div id="message"></div>
+
+    <script src="html2canvas.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 </body>
+
+</html>
 
 </html>

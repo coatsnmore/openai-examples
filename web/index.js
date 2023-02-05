@@ -18,12 +18,25 @@ function createBlob(base64Image) {
     return blob;
 }
 
+function setDownloadImage(character) {
+    html2canvas(document.getElementById("card")).then(function (canvas) {
+        let imgData = canvas.toDataURL("image/png");
+        let image = document.getElementById("shareable-image");
+        image.style.display = 'none';
+        image.src = imgData;
+        return image;
+    }).then(image => {
+        const downloadLink = document.getElementById("download-link");
+        downloadLink.href = image.src;
+        downloadLink.download= `${character.name}.png`
+    });
+}
 
 function copyImage() {
     html2canvas(document.getElementById("card")).then(function (canvas) {
         let imgData = canvas.toDataURL("image/png");
         let image = document.getElementById("shareable-image");
-        image.style.visibility = 'hidden';
+        image.style.display = 'none';
         image.src = imgData;
         return image;
     }).then(image => {
@@ -69,25 +82,27 @@ function renderCharacter(character) {
     let image = new Image();
     image.src = "data:image/jpeg;base64," + characterImage;
     imageContainer.appendChild(image);
+    image.className = 'card-img-top';
 
     let profile = document.getElementById('profile');
     profile.innerHTML = `
-    <h1><b>Name:</b> ${character.name}</h1>
-    <div><b>Age:</b> ${character.age}</div>
-    <div><b>Alignment:</b> ${character.alignment}</div>
-    <div><b>HP:</b> ${character.hp}</div>
-    <div><b>Species:</b> ${character.species}</div>
-    <div><b>Class:</b> ${character.class}</div>
-    <div><b>Home Town:</b> ${character.homeTown}</div>
-    <div><b>Favorite Weapon:</b> ${character.favoriteWeapon}</div>
-    <div><b>Darkest Fear:</b> ${character.darkestFear}</div>
-    <div><b>Hidden Secret:</b> ${character.mostHiddenSecret}</div>
-    <div><b>Background:</b> ${character.background}</div>
+    <h5 class="card-title">${character.name}</h5>
+    <p class="card-text">
+        <div><b>Age:</b> ${character.age}</div>
+        <div><b>Alignment:</b> ${character.alignment}</div>
+        <div><b>HP:</b> ${character.hp}</div>
+        <div><b>Species:</b> ${character.species}</div>
+        <div><b>Class:</b> ${character.class}</div>
+        <div><b>Home Town:</b> ${character.homeTown}</div>
+        <div><b>Favorite Weapon:</b> ${character.favoriteWeapon}</div>
+        <div><b>Darkest Fear:</b> ${character.darkestFear}</div>
+        <div><b>Hidden Secret:</b> ${character.mostHiddenSecret}</div>
+        <div><b>Background:</b> ${character.background}</div>
+    </p>
     `;
 
     document.getElementById("spinner").remove();
+    setDownloadImage(character);
 }
 
 getCharacter().then(character => renderCharacter(character));
-
-
