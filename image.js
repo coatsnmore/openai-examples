@@ -7,11 +7,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-
 const response = await openai.createImage({
-    prompt: "a white siamese cat",
+    prompt: "A cat pirate with a parrot on its shoulder. Like a Renaissance oil painting.",
     n: 1,
-    size: "1024x1024",
+    size: "1024x1024"
 });
 let image_url = response.data.data[0].url;
 
