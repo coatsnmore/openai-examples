@@ -18,7 +18,7 @@ if (!configuration.apiKey) {
 const app = express();
 app.use(cors());
 const port = 4000;
-app.use(express.static("web"));
+// app.use(express.static("web"));
 
 function generatePrompt(type, theme) {
 

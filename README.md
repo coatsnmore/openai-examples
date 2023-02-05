@@ -64,6 +64,12 @@ Beware keeping secrets there.
     $ npm run api
     ```
 
+6. Run the Web
+
+    ```bash
+    $ npm run web
+    ```
+
 ### Some Interesting Reads
 
 - [Sampling Temperature and Language Models](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277)
