@@ -20,39 +20,23 @@ readlineSync.setDefaultOptions({
     print: function (display, encoding) {
         // logger.info(display);
         chalk.blue('? ');
-    }, // Remove ctrl-chars.
+    },
 });
 
 while (true) {
-
-    console.log(chalk.green(`Let's create a new life. What kind of animal is your adventurer?`));
-    let animal = readlineSync.prompt();
+    console.log(chalk.green(`Enter a prompt and let's see what kind of answer we get:`));
+    let promptInput = readlineSync.prompt();
 
     try {
-        console.log(chalk.blue(`Excellent Choice of "${animal}"!...`));
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: generatePrompt(animal),
-            temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
+            prompt: promptInput,
+            temperature: 1.0,//higher the more creative, lower the more precise, [0-1]
             max_tokens: 256
         });
 
-        let profile = JSON.parse(completion.data.choices[0].text);
-        // let completionText = completion.data.choices[0].text;
-        console.log(chalk.blue(`Here is one suggesion of an adventurer: `));
-        console.log(`
-                Name: ${profile.name}
-                Age: ${profile.age}
-                Alignment: ${profile.alignment}
-                HP: ${profile.hp}
-                Species: ${profile.species}
-                Class: ${profile.class}
-                Home Town: ${profile.homeTown}
-                Favorite Weapon: ${profile.favoriteWeapon}
-                Darkest Fear: ${profile.darkestFear}
-                Hidden Secret: ${profile.mostHiddenSecret}
-                Background: ${profile.background}
-                \n`);
+        let completionText = completion.data.choices[0].text;
+        console.log(chalk.blue(`Answer: \n${completionText}`));
 
     } catch (error) {
         if (error.response) {
@@ -60,47 +44,5 @@ while (true) {
         } else {
             console.error(`Error with OpenAI API request: ${error.message}`);
         }
-    }
-
-    function generatePrompt(animal) {
-        const capitalizedAnimal =
-            animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-        return `Suggest a profile for an animal adventurer including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
-
-          Animal: Cat
-          Profile:
-          {
-            "name": "Captain Sharpclaw", 
-            "age": "27",
-            "hp": "43",
-            "species": "Cattus Sneakum",
-            "homeTown": "Barnacle Bay",
-            "class": "Seafarer",
-            "mostHiddenSecret": "Loves his dog step-brother", 
-            "alignment": "Lawful Neutral",
-            "favoriteWeapon": "Laser Eyes",
-            "darkestFear": "The illusive white mouse",
-            "background" : "The formerly distinginguished Captain Sharpclaw Sailed the highseas with his loyal crew until his first mate betrayed him! The rest of the crew was short-sighted and were easily swayed. The captain was abandoned on a beach left with nothing but his wits and his whiskers."
-          }   
-
-          Animal: Dog
-          Profile:
-          {
-            "name": "McBarks-A-Lot", 
-            "age"": 4,
-            "hp": "54",
-            "class": "Fighter",
-            "mostHiddenSecret": "Puts peanut butter on pickles",
-            "alignment": "Chaotic Neutral",
-            "species": "Doggus Maximus",
-            "homeTown": "Barkthage",
-            "favoriteWeapon": "Bare Knuckles",
-            "darkestFear": "The bottom of an empty bowl",
-            "background" : "Born in the gladiator pits of Barkthage, Doggus Maximus, the greatest of his time, pulled himself up by his pawstraps. His great victory brought him his freedom. He yearns for nothing but peace, but he fears the nature of mean will require his skills again in this lifetime."
-          }
-
-          Animal: ${capitalizedAnimal}
-          Profile:
-          `;
     }
 }

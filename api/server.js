@@ -27,7 +27,7 @@ function generatePrompt(type, theme) {
 
     const capitalizedType =
         type[0].toUpperCase() + type.slice(1).toLowerCase();
-        
+
     return `Suggest a profile for an adventurer given a Type and Theme including name, age, favorite weapon, darkest fear, etc. Make it funny, cool, and interesting.
 
       Theme: Hero Fantasy
@@ -72,12 +72,21 @@ function generatePrompt(type, theme) {
 
 app.get('/characters', async (req, res) => {
 
-    let completion, generatedImage, imageVariation, type = req.query.type, theme = req.query.theme;
+    let completion, generatedImage, type = req.query.type, theme = req.query.theme;
+
+    if (!type) {
+        type = 'Clown';
+
+    }
+    if (!theme) {
+        theme = 'Medieval Fantasy';
+    }
+
     try {
         completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: generatePrompt(type, theme),
-            temperature: 0.6,//higher the more create, lower the more precisel, [0-1]
+            temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
             max_tokens: 256
         });
     } catch (e) {
@@ -87,10 +96,8 @@ app.get('/characters', async (req, res) => {
 
     let character = JSON.parse(completion.data.choices[0].text);
 
-    //Now take the portait and include it in a portrait card like a character in a trading card game. Include the stats of the adventure like their, name, ${character.name} and background ${character.background}.
     try {
         generatedImage = await openai.createImage({
-            // prompt: `Generate an image that is a hand-painted portait of a ${req.query.type} who is also an RPG hero adventurer. Include vibrant colors and an epic medieval fantasy theme. The adventurer is a ${req.query.animal} with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, holding their ${character.favoriteWeapon}. Ensure the entire character is visible in the image. Try to make it an active scene. The portrait background should be similar to the theme of their home town, ${character.homeTown}. Their character story background is ${character.background}`,
             prompt: `A hand-drawn portaint of a ${type} adventurer with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, and using their favorite weapon, ${character.favoriteWeapon}. Make it vibrant, epic look like fine oil painting.`,
             n: 1,
             size: "1024x1024",

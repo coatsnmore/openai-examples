@@ -74,8 +74,9 @@ https://gitpod.io/?editor=code#https://github.com/coatsnmore/openai-examples
     $ npm run web
     ```
 
-### Some Interesting Reads on AI
+### Learn More
 
+- [Azure hosting Open AI Services](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/limited-access?context=%2Fazure%2Fcognitive-services%2Fopenai%2Fcontext%2Fcontext)
 - [Sampling Temperature and Language Models](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277)
 
 ### Some Other AI Tools to Consider
