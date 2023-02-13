@@ -98,7 +98,7 @@ app.get('/characters', async (req, res) => {
 
     try {
         generatedImage = await openai.createImage({
-            prompt: `A hand-drawn portaint of a ${type} adventurer with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, and using their favorite weapon, ${character.favoriteWeapon}. Make it vibrant, epic look like fine oil painting.`,
+            prompt: `A hand-drawn portrait of a ${type} adventurer with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, and using their favorite weapon, ${character.favoriteWeapon}. Make it vibrant, epic look like fine oil painting.`,
             n: 1,
             size: "1024x1024",
             "response_format": "b64_json"

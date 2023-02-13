@@ -31,7 +31,7 @@ while (true) {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: promptInput,
-            temperature: 1.0,//higher the more creative, lower the more precise, [0-1]
+            temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
             max_tokens: 256
         });
 
