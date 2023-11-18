@@ -27,6 +27,9 @@ while (true) {
     console.log(chalk.green(`Enter a prompt and let's see what kind of answer we get:`));
     let promptInput = readlineSync.prompt();
 
+    if (promptInput == "exit")
+        process.exit(0);
+
     try {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
@@ -44,5 +47,6 @@ while (true) {
         } else {
             console.error(`Error with OpenAI API request: ${error.message}`);
         }
+        process.exit(1);
     }
 }
