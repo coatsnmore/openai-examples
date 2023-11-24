@@ -17,7 +17,7 @@ class CharacterGenerator {
         let profileContainer = document.getElementById("profile");
         profileContainer.childNodes.forEach(child => profileContainer.removeChild(child));
 
-        const host = 'http://localhost:4000/characters/';
+        const host = 'http://localhost:8888/characters/';
         // const host = 'https://4l8lmpmgh9.execute-api.us-east-1.amazonaws.com/character-generator';
 
         theme = theme || 'Fantasy';

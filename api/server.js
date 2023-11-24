@@ -1,23 +1,17 @@
 import express from 'express';
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
 dotenv.config();
 
-const configuration = new Configuration({
+const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
-
-if (!configuration.apiKey) {
-    console.error("API Key not configured. Modify your '.env' file with a correct API Key for Open AI with a key of 'OPENAI_API_KEY'.");
-    process.exit(1)
-}
 
 const app = express();
 app.use(cors());
-const port = 4000;
+const port = 8888;
 // app.use(express.static("web"));
 
 function generatePrompt(type, theme) {
@@ -83,23 +77,27 @@ app.get('/characters', async (req, res) => {
     }
 
     try {
-        completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: generatePrompt(type, theme),
-            temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
-            max_tokens: 256
-        });
+        const params = {
+            model: "gpt-3.5-turbo",
+            messages: [{ role: 'user', content: generatePrompt(type, theme) }]
+        }
+
+        completion = await openai.chat.completions.create(params);
+        
     } catch (e) {
         console.log(e);
         throw new Error("Error getting completion...");
     }
-
-    let character = JSON.parse(completion.data.choices[0].text);
+    
+    let character = JSON.parse(completion.choices[0].message.content);
 
     try {
-        generatedImage = await openai.createImage({
+
+        generatedImage = await openai.images.generate({
             prompt: `A hand-drawn portrait of a ${type} adventurer with a class of ${character.class}, age ${character.age}, an alignment of ${character.alignment}, and using their favorite weapon, ${character.favoriteWeapon}. Make it vibrant, epic look like fine oil painting.`,
             n: 1,
+            model: 'dall-e-3',
+            quality: 'standard',
             size: "1024x1024",
             "response_format": "b64_json"
         });
@@ -108,7 +106,7 @@ app.get('/characters', async (req, res) => {
         throw new Error("Error getting image");
     }
 
-    let image_base64 = generatedImage.data.data[0].b64_json;
+    let image_base64 = generatedImage.data[0].b64_json;
 
     if (req.query.html) {
         res.send(`

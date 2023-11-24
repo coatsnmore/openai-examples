@@ -9,11 +9,6 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-// if (!configuration.apiKey) {
-//     console.log(chalk.red("API Key not configured. Modify your '.env' file with a correct API Key for Open AI with a key of 'OPENAI_API_KEY'."))
-//     process.exit(1)
-// }
-
 readlineSync.setDefaultOptions({
     prompt: chalk.blue.bold('? '),
     print: function (display, encoding) {
@@ -33,11 +28,9 @@ while (true) {
         const params = {
             model: "gpt-3.5-turbo",
             messages: [{ role: 'user', content: promptInput }]
-            // prompt: promptInput,
             // temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
             // max_tokens: 256
         }
-        // const completion = await openai.chat.completions.create();
 
         const completion = await openai.chat.completions.create(params);
         let completionText = completion.choices[0].message.content;
