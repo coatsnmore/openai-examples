@@ -30,16 +30,20 @@ while (true) {
         process.exit(0);
 
     try {
-        const completion = await openai.chat.completions.create({
+        const params = {
             model: "gpt-3.5-turbo",
             messages: [{ role: 'user', content: promptInput }]
             // prompt: promptInput,
             // temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
             // max_tokens: 256
-        });
+        }
+        // const completion = await openai.chat.completions.create();
 
-        let completionText = completion.data.choices[0].text;
+        const completion = await openai.chat.completions.create(params);
+        let completionText = completion.choices[0].message.content;
         console.log(chalk.blue(`Answer: \n${completionText}`));
+
+        
 
     } catch (error) {
         if (error.response) {
