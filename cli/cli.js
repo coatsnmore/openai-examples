@@ -17,27 +17,30 @@ readlineSync.setDefaultOptions({
     },
 });
 
+let chat = [];
+
 while (true) {
     console.log(chalk.green(`Enter a prompt and let's see what kind of answer we get:`));
+    
     let promptInput = readlineSync.prompt();
 
     if (promptInput == "exit")
         process.exit(0);
 
+    chat.push({ role: 'user', content: promptInput })
+
     try {
         const params = {
-            model: "gpt-3.5-turbo",
-            messages: [{ role: 'user', content: promptInput }]
-            // temperature: 0.6,//higher the more creative, lower the more precise, [0-1]
-            // max_tokens: 256
+            model: "gpt-3.5-turbo-1106",
+            messages: chat
         }
 
         const completion = await openai.chat.completions.create(params);
+        chat.push(completion.choices[0].message);
+        // console.dir(chat)
+
         let completionText = completion.choices[0].message.content;
         console.log(chalk.blue(`Answer: \n${completionText}`));
-
-        
-
     } catch (error) {
         if (error.response) {
             console.error(error.response.status, error.response.data);
